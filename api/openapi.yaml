@@ -1,0 +1,2324 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/updateUserRole:
+    put:
+      tags:
+      - home-controller
+      summary: Update a user's role in a home
+      operationId: updateUserRole
+      parameters:
+      - name: userEmail
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: homeId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: newRole
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/shopping/update/{itemId}:
+    put:
+      tags:
+      - shopping-list-controller
+      summary: Update the amount of an item in a home's shopping list
+      operationId: updateAmount
+      parameters:
+      - name: itemId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: ShoppingListController
+  /api/request/respond:
+    put:
+      tags:
+      - request-controller
+      summary: Respond to a request
+      operationId: respondToRequest
+      parameters:
+      - name: requestId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: status
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: RequestController
+  /api/refrigerator/{homeId}/updateItem/{ingredientName}:
+    put:
+      tags:
+      - refrigerator-controller
+      summary: Update an item's amount in a home's refrigerator
+      operationId: updateRefrigeratorItemAmount
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: ingredientName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: updatedAmount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/mealPlanner/{homeId}/{recipeId}:
+    put:
+      tags:
+      - meal-plan-controller
+      summary: Generates a new meal for a day in a meal plan
+      operationId: generateANewMealForADayInAMealPlan
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: recipeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/mealPlanner/{homeId}/eaten:
+    put:
+      tags:
+      - meal-plan-controller
+      summary: "Marks meal plan recipe as eaten, and updates the fridge accordingly"
+      operationId: markRecipeAsEaten
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/invites/decline/{inviteId}:
+    put:
+      tags:
+      - invite-controller
+      summary: Decline an invite
+      operationId: declineInvite
+      parameters:
+      - name: inviteId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: InviteController
+  /api/invites/accept/{inviteId}:
+    put:
+      tags:
+      - invite-controller
+      summary: Accept an invite
+      operationId: acceptInvite
+      parameters:
+      - name: inviteId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: InviteController
+  /api/cabinet/update/{itemId}:
+    put:
+      tags:
+      - cabinet-controller
+      summary: Update the amount of an item in a home's cabinet
+      operationId: updateAmount_1
+      parameters:
+      - name: itemId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: CabinetController
+  /api/user:
+    post:
+      tags:
+      - user-controller
+      summary: Register a new user
+      operationId: createUser
+      requestBody:
+        description: User object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: UserController
+  /api/update/password:
+    post:
+      tags:
+      - user-controller
+      summary: Update the password of a user
+      operationId: updateLastName
+      parameters:
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: UserController
+  /api/update/lastName/{email}:
+    post:
+      tags:
+      - user-controller
+      summary: Update the lastname of a user
+      operationId: updateLastName_1
+      parameters:
+      - name: email
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: lastName
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: UserController
+  /api/update/firstName/{email}:
+    post:
+      tags:
+      - user-controller
+      summary: Update the firstname of a user
+      operationId: updateFirstName
+      parameters:
+      - name: email
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: firstName
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: UserController
+  /api/shopping/transfer/batch/{homeID}:
+    post:
+      tags:
+      - shopping-list-controller
+      summary: Transfer a batch of items from a home's shopping list to the refrigerator
+        and cabinet
+      operationId: transferItemsBatch
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int64
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: ShoppingListController
+  /api/shopping/add/{homeID}:
+    post:
+      tags:
+      - shopping-list-controller
+      summary: Add an item to a home's shopping list
+      operationId: addItem
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: ShoppingListController
+  /api/refrigerator/{homeId}/add:
+    post:
+      tags:
+      - refrigerator-controller
+      summary: Add an item to a home's refrigerator
+      operationId: addRefrigeratorItem
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: ingredientName
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      - name: date
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/mealPlanner/{homeId}:
+    get:
+      tags:
+      - meal-plan-controller
+      summary: Get the active meal plan for a home
+      operationId: getMealPlanByHomeId
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+    post:
+      tags:
+      - meal-plan-controller
+      summary: Adds the missing ingredients for a meal plan to the shopping list
+      operationId: addIngredientsToShoppingListForMealPlan
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/mealPlanner/{homeId}/recipe:
+    post:
+      tags:
+      - meal-plan-controller
+      summary: Adds the missing ingredients for a meal to the shopping list
+      operationId: addIngredientsToShoppingListForRecipe
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/mealPlanner/{homeId}/generate:
+    post:
+      tags:
+      - meal-plan-controller
+      summary: Generate a meal plan for a home
+      operationId: generateMealPlan
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MealPlan'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/login:
+    post:
+      tags:
+      - user-controller
+      summary: Login a user to get token
+      operationId: login
+      requestBody:
+        description: User credentials for the user being logged in
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: UserController
+  /api/invites/sendInvite:
+    post:
+      tags:
+      - invite-controller
+      summary: Send an invite to a user for joining a home
+      operationId: sendInvite
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invite'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: InviteController
+  /api/home/editName/{homeID}/{name}:
+    post:
+      tags:
+      - home-controller
+      summary: Edit the name for a home
+      operationId: editName
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/home/editLocation/{homeID}:
+    post:
+      tags:
+      - home-controller
+      summary: Edit the location for a home
+      operationId: editLocation
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: latitude
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      - name: longitude
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/foodwaste/{homeId}/add:
+    post:
+      tags:
+      - food-waste-controller
+      summary: Add food waste entry
+      operationId: addWaste
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      - name: ingredientName
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: FoodWasteController
+  /api/foodwaste/{homeId}/addList/{date}:
+    post:
+      tags:
+      - food-waste-controller
+      summary: Add a list of food waste entries
+      operationId: addWasteList
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: number
+                format: double
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: FoodWasteController
+  /api/createHome:
+    post:
+      tags:
+      - home-controller
+      summary: Create a home
+      operationId: createHome
+      parameters:
+      - name: userEmail
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Home'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Home'
+      x-swagger-router-controller: HomeController
+  /api/cabinet/{homeId}/add:
+    post:
+      tags:
+      - cabinet-controller
+      summary: Add item to a cabinet
+      operationId: addItemToCabinet
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: itemName
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: CabinetController
+  /api/shopping/items/{homeID}:
+    get:
+      tags:
+      - shopping-list-controller
+      summary: Get all items in a home's shopping list
+      operationId: getShoppingItemsByHomeID
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: ShoppingListController
+  /api/request/{homeId}/{type}:
+    get:
+      tags:
+      - request-controller
+      summary: Get all request for a home depending on type
+      operationId: getPendingRequestsForType
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: type
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          enum:
+          - BUY_REQUEST
+          - EAT_REQUEST
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: RequestController
+  /api/request/type:
+    get:
+      tags:
+      - request-controller
+      summary: Retrieves all the request types
+      operationId: getRequestTypes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: RequestController
+  /api/request/pending:
+    get:
+      tags:
+      - request-controller
+      summary: Get all pending request for a home
+      operationId: getPendingRequests
+      parameters:
+      - name: homeId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: RequestController
+  /api/request/all:
+    get:
+      tags:
+      - request-controller
+      summary: Get all request for a home
+      operationId: getAllRequests
+      parameters:
+      - name: homeId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: RequestController
+  /api/refrigerator/{homeId}/getAll:
+    get:
+      tags:
+      - refrigerator-controller
+      summary: Retrieve all items from a home's refrigerator
+      operationId: getAllRefrigeratorItems
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/refrigerator/ingredients:
+    get:
+      tags:
+      - refrigerator-controller
+      summary: Retrieve all ingredients
+      operationId: getAllIngredients
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient'
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/refrigerator/ingredients/{filter}:
+    get:
+      tags:
+      - refrigerator-controller
+      summary: Get ingredients by a filter
+      operationId: getFilteredIngredients
+      parameters:
+      - name: filter
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient'
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/refrigerator/categories/expiration-times:
+    get:
+      tags:
+      - refrigerator-controller
+      summary: Get's the expiration date for categories
+      operationId: getCategoryExpirationTimes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/refreshToken:
+    get:
+      tags:
+      - user-controller
+      summary: Refresh the token for a user
+      operationId: refreshToken
+      parameters:
+      - name: email
+        in: query
+        description: User email for the user refreshing the token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: UserController
+  /api/recipe/random/{numberOfRecipes}:
+    get:
+      tags:
+      - recipe-controller
+      summary: Get random recipes
+      operationId: getRandomRecipes
+      parameters:
+      - name: numberOfRecipes
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+                x-content-type: '*/*'
+      x-swagger-router-controller: RecipeController
+  /api/recipe/image/{imageName}:
+    get:
+      tags:
+      - recipe-controller
+      summary: Get the image for a recipe
+      operationId: getImage
+      parameters:
+      - name: imageName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: RecipeController
+  /api/recipe/all:
+    get:
+      tags:
+      - recipe-controller
+      summary: Retrieve all recipes
+      operationId: getAllRecipes
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+                x-content-type: '*/*'
+      x-swagger-router-controller: RecipeController
+  /api/mealPlanner/{homeId}/recipe/{date}:
+    get:
+      tags:
+      - meal-plan-controller
+      summary: Get a recipe for a given date from the active meal plan for a home
+      operationId: getRecipeForDate
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/mealPlanner/{homeId}/generateMeal:
+    get:
+      tags:
+      - meal-plan-controller
+      summary: Generates a meal depending on the ingredients in the fridge
+      operationId: getMealFromRefrigerator
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: numberOfUsers
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: MealPlanController
+  /api/invites/getSentInvitesFromHome:
+    get:
+      tags:
+      - invite-controller
+      summary: Retrieve all the sent invites
+      operationId: getSentInvitesFromHome
+      parameters:
+      - name: homeId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invite'
+                x-content-type: '*/*'
+      x-swagger-router-controller: InviteController
+  /api/invites/getPendingInvites:
+    get:
+      tags:
+      - invite-controller
+      summary: Retrieve all the pending invites
+      operationId: getPendingInvites
+      parameters:
+      - name: userEmail
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invite'
+                x-content-type: '*/*'
+      x-swagger-router-controller: InviteController
+  /api/home/{homeID}:
+    get:
+      tags:
+      - home-controller
+      summary: Retrieve a home by it's id
+      operationId: getHomeByID
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Home'
+      x-swagger-router-controller: HomeController
+  /api/getUsersInHome:
+    get:
+      tags:
+      - home-controller
+      summary: Retrieve the users from a home
+      operationId: getUsersInHome
+      parameters:
+      - name: homeID
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/getRoleForUser:
+    get:
+      tags:
+      - home-controller
+      summary: Retrieve the role for the user in a home
+      operationId: getRoleForUserInHome
+      parameters:
+      - name: userEmail
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: homeID
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/getHomesForUser:
+    get:
+      tags:
+      - home-controller
+      summary: List all the homes a user is involved with
+      operationId: getHomesForUser
+      parameters:
+      - name: userEmail
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Home'
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/getAllRoles:
+    get:
+      tags:
+      - home-controller
+      summary: Retrieve the roles possible for a home
+      operationId: getAllRoles
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/foodwaste/{homeId}/stats/{startDate}/{endDate}:
+    get:
+      tags:
+      - food-waste-controller
+      summary: Get food waste stats by date range
+      operationId: getStatsByDateRange
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: startDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: FoodWasteController
+  /api/foodwaste/{homeId}/get/{startDate}/{endDate}:
+    get:
+      tags:
+      - food-waste-controller
+      summary: Get food waste for a date range
+      operationId: getWasteByDateRange
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: startDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: FoodWasteController
+  /api/foodwaste/{homeId}/get/{date}:
+    get:
+      tags:
+      - food-waste-controller
+      summary: Get food waste by specific date
+      operationId: getWasteByDate
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: FoodWasteController
+  /api/foodwaste/{homeId}/categoryStats/{startDate}/{endDate}:
+    get:
+      tags:
+      - food-waste-controller
+      summary: Get category waste stats for a specific home
+      operationId: getCategoryWasteStatsByHomeId
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: startDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: FoodWasteController
+  /api/cabinet/{homeId}/getAll:
+    get:
+      tags:
+      - cabinet-controller
+      summary: Retrieve all items from cabinet
+      operationId: getAllCabinetItems
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: CabinetController
+  /api/boughtItem/{homeId}/get/{startDate}/{endDate}:
+    get:
+      tags:
+      - bought-item-controller
+      summary: Get stats for bought items by date range
+      operationId: getBoughtItemsStatsByDateRange
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: startDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: BoughtItemController
+  /api/shopping/transfer/{homeID}:
+    delete:
+      tags:
+      - shopping-list-controller
+      summary: Transfer all items from a home's shopping list to the refrigerator
+        and cabinet
+      operationId: transferItems
+      parameters:
+      - name: homeID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: date
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: ShoppingListController
+  /api/shopping/remove/{itemId}:
+    delete:
+      tags:
+      - shopping-list-controller
+      summary: Remove an item from a home's shopping list
+      operationId: removeItem
+      parameters:
+      - name: itemId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: ShoppingListController
+  /api/removeUserFromHome:
+    delete:
+      tags:
+      - home-controller
+      summary: Remove a user from a home
+      operationId: removeUserFromHome
+      parameters:
+      - name: userEmail
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: homeId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/refrigerator/{homeId}/deleteItem/{ingredientName}:
+    delete:
+      tags:
+      - refrigerator-controller
+      summary: Remove an item from a home's refrigerator
+      operationId: removeRefrigeratorItem
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: ingredientName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/refrigerator/{homeId}/deleteAll:
+    delete:
+      tags:
+      - refrigerator-controller
+      summary: Delete all items from a home's refrigerator
+      operationId: removeAllRefrigeratorItems
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: RefrigeratorController
+  /api/leaveHome:
+    delete:
+      tags:
+      - home-controller
+      summary: Leave a home
+      operationId: leaveHome
+      parameters:
+      - name: homeId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/invites/deleteInvite/{inviteId}:
+    delete:
+      tags:
+      - invite-controller
+      summary: Delete an invite
+      operationId: deleteInvite
+      parameters:
+      - name: inviteId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: InviteController
+  /api/deleteHome/{homeId}:
+    delete:
+      tags:
+      - home-controller
+      summary: Deletes a home and all related items
+      operationId: deleteHome
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: HomeController
+  /api/cabinet/{homeId}/deleteItem/{itemId}:
+    delete:
+      tags:
+      - cabinet-controller
+      summary: Delete a item from a cabinet
+      operationId: deleteCabinetItem
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: itemId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                x-content-type: '*/*'
+      x-swagger-router-controller: CabinetController
+  /api/cabinet/{homeId}/deleteAll:
+    delete:
+      tags:
+      - cabinet-controller
+      summary: Delete all items from a cabinet
+      operationId: removeAllCabinetItems
+      parameters:
+      - name: homeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                x-content-type: '*/*'
+      x-swagger-router-controller: CabinetController
+components:
+  schemas:
+    UserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+    Ingredient:
+      type: object
+      properties:
+        name:
+          type: string
+        unit:
+          type: string
+        price:
+          type: number
+          format: double
+        category:
+          type: string
+          enum:
+          - Melkeprodukter
+          - Fisk_og_skalldyr
+          - Gronnsaker
+          - Notter_og_fro
+          - Kornvarer
+          - Kjott_og_egg
+          - Sauser_og_krydder
+      example:
+        unit: unit
+        price: 0.80082819046101150206595775671303272247314453125
+        name: name
+        category: Melkeprodukter
+    Recipe:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        recipeIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeIngredient'
+      example:
+        image: image
+        recipeIngredients:
+        - amount: 1.46581298050294517310021547018550336360931396484375
+          ingredient:
+            unit: unit
+            price: 0.80082819046101150206595775671303272247314453125
+            name: name
+            category: Melkeprodukter
+          recipe: null
+          id: 6
+        - amount: 1.46581298050294517310021547018550336360931396484375
+          ingredient:
+            unit: unit
+            price: 0.80082819046101150206595775671303272247314453125
+            name: name
+            category: Melkeprodukter
+          recipe: null
+          id: 6
+        name: name
+        description: description
+        id: 0
+    RecipeIngredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        recipe:
+          $ref: '#/components/schemas/Recipe'
+        ingredient:
+          $ref: '#/components/schemas/Ingredient'
+        amount:
+          type: number
+          format: double
+      example:
+        amount: 1.46581298050294517310021547018550336360931396484375
+        ingredient:
+          unit: unit
+          price: 0.80082819046101150206595775671303272247314453125
+          name: name
+          category: Melkeprodukter
+        recipe: null
+        id: 6
+    Home:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        homeOwner:
+          $ref: '#/components/schemas/User'
+      example:
+        homeOwner: null
+        name: name
+        location:
+          latitude: 6.02745618307040320615897144307382404804229736328125
+          longitude: 1.46581298050294517310021547018550336360931396484375
+        id: 0
+        users:
+        - firstName: firstName
+          lastName: lastName
+          password:
+          - ""
+          - ""
+          salt:
+          - ""
+          - ""
+          homeUserRoles:
+          - role: EIER
+            id: 5
+            user: null
+            home: null
+          - role: EIER
+            id: 5
+            user: null
+            home: null
+          homes:
+          - null
+          - null
+          email: email
+        - firstName: firstName
+          lastName: lastName
+          password:
+          - ""
+          - ""
+          salt:
+          - ""
+          - ""
+          homeUserRoles:
+          - role: EIER
+            id: 5
+            user: null
+            home: null
+          - role: EIER
+            id: 5
+            user: null
+            home: null
+          homes:
+          - null
+          - null
+          email: email
+    HomeUserRole:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        home:
+          $ref: '#/components/schemas/Home'
+        user:
+          $ref: '#/components/schemas/User'
+        role:
+          type: string
+          enum:
+          - EIER
+          - MEDLEM
+          - BARN
+      example:
+        role: EIER
+        id: 5
+        user: null
+        home: null
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+      example:
+        latitude: 6.02745618307040320615897144307382404804229736328125
+        longitude: 1.46581298050294517310021547018550336360931396484375
+    MealPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        mealPlanRecipes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MealPlanRecipe'
+        recipes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipe'
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeIngredient'
+    MealPlanRecipe:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/MealPlanRecipeId'
+        eaten:
+          type: boolean
+        recipe:
+          $ref: '#/components/schemas/Recipe'
+    MealPlanRecipeId:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          writeOnly: true
+        mealPlanId:
+          type: integer
+          format: int64
+          writeOnly: true
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        salt:
+          type: array
+          items:
+            type: string
+            format: byte
+        password:
+          type: array
+          items:
+            type: string
+            format: byte
+        homes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Home'
+        homeUserRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeUserRole'
+      example:
+        firstName: firstName
+        lastName: lastName
+        password:
+        - ""
+        - ""
+        salt:
+        - ""
+        - ""
+        homeUserRoles:
+        - role: EIER
+          id: 5
+          user: null
+          home: null
+        - role: EIER
+          id: 5
+          user: null
+          home: null
+        homes:
+        - null
+        - null
+        email: email
+    Invite:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        home:
+          $ref: '#/components/schemas/Home'
+        invitedUserEmail:
+          type: string
+        invitingUserEmail:
+          type: string
+        role:
+          type: string
+          enum:
+          - EIER
+          - MEDLEM
+          - BARN
+        status:
+          type: string
+          enum:
+          - PENDING
+          - ACCEPTED
+          - DECLINED
+      example:
+        role: EIER
+        invitingUserEmail: invitingUserEmail
+        id: 0
+        invitedUserEmail: invitedUserEmail
+        home:
+          homeOwner: null
+          name: name
+          location:
+            latitude: 6.02745618307040320615897144307382404804229736328125
+            longitude: 1.46581298050294517310021547018550336360931396484375
+          id: 0
+          users:
+          - firstName: firstName
+            lastName: lastName
+            password:
+            - ""
+            - ""
+            salt:
+            - ""
+            - ""
+            homeUserRoles:
+            - role: EIER
+              id: 5
+              user: null
+              home: null
+            - role: EIER
+              id: 5
+              user: null
+              home: null
+            homes:
+            - null
+            - null
+            email: email
+          - firstName: firstName
+            lastName: lastName
+            password:
+            - ""
+            - ""
+            salt:
+            - ""
+            - ""
+            homeUserRoles:
+            - role: EIER
+              id: 5
+              user: null
+              home: null
+            - role: EIER
+              id: 5
+              user: null
+              home: null
+            homes:
+            - null
+            - null
+            email: email
+        status: PENDING
